@@ -11,8 +11,8 @@ int main()
     sf::SoundBuffer buffer1;
     sf::SoundBuffer buffer2;
 
-    buffer1.loadFromFile("17.wav");
-    buffer2.loadFromFile("16.wav");
+    buffer1.loadFromFile("samples/17.wav");
+    buffer2.loadFromFile("samples/16.wav");
 
     sf::Sound sound1;
     sf::Sound sound2;
