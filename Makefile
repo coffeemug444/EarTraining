@@ -2,10 +2,22 @@ CC=g++
 CFLAGS = -g -std=c++20 -Wall -Wextra -Wpedantic
 LIBS=-lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
-main: src/main.cpp src/guessingPage.cpp src/settingsPage.cpp
+SRCDIR=src
+ODIR=obj
+
+_DEPS = page.hpp guessingPage.hpp settingsPage.hpp
+DEPS = $(patsubst %,$(SRCDIR)/%,$(_DEPS))
+
+_OBJ = main.o guessingPage.o settingsPage.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: $(SRCDIR)/%.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+main: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 
 clean:
-	rm -f main
+	rm -f main obj/*
