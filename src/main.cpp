@@ -1,5 +1,25 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "guessingPage.hpp"
+#include "settingsPage.hpp"
+
+enum PageId {
+   SETTINGS,
+   GUESSING
+};
+
+const int WIDTH = 200;
+const int HEIGHT = 200;
+
+PageId activePage = SETTINGS;
+GuessingPage guessing_page(WIDTH, HEIGHT);
+SettingsPage settings_page(WIDTH, HEIGHT);
+
+Page& getActivePage()
+{
+   if (activePage == SETTINGS) return settings_page;
+   return guessing_page;
+}
 
 void pollEvents(sf::RenderWindow& window)
 {
@@ -30,7 +50,7 @@ void pollEvents(sf::RenderWindow& window)
 
 int main()
 {
-   sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training");
    sf::CircleShape shape(100.f);
    shape.setFillColor(sf::Color::Green);
 
