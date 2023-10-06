@@ -1,7 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Page : sf::Drawable
+enum PageId {
+   SETTINGS,
+   GUESSING
+};
+
+class Page : public sf::Drawable
 {
 public:
    Page(int widgth, int height)

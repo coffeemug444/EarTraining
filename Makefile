@@ -5,10 +5,10 @@ LIBS=-lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 SRCDIR=src
 ODIR=obj
 
-_DEPS = page.hpp guessingPage.hpp settingsPage.hpp button.hpp
+_DEPS = page.hpp guessingPage.hpp settingsPage.hpp button.hpp toggleButton.hpp
 DEPS = $(patsubst %,$(SRCDIR)/%,$(_DEPS))
 
-_OBJ = main.o guessingPage.o settingsPage.o button.o
+_OBJ = main.o guessingPage.o settingsPage.o button.o toggleButton.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SRCDIR)/%.cpp $(DEPS)

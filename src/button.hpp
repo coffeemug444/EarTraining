@@ -2,26 +2,27 @@
 #include <SFML/Graphics.hpp>
 
 
-class Button : sf::Drawable
+class Button : public sf::Drawable
 {
 public:
-   Button(int width, int height)
-      :WIDTH(width)
-      ,HEIGHT(height)
-   {}
+   Button(){}
+   void setSize(int width, int height);
    void mouseDown(const sf::Vector2f& pos);
    void mouseUp(const sf::Vector2f& pos);
-   bool mouseIsOver(const sf::Vector2f& pos);
-   void setPos(const sf::Vector2f& pos) { m_position = pos; }
+   bool mouseIsOver(const sf::Vector2f& pos) const;
+   void setPos(const sf::Vector2f& pos) { m_position = pos; setPosHook(pos); }
 
 protected:
    virtual void onClicked() {}
+   virtual void setPosHook(const sf::Vector2f&) {};
+   virtual void setSizeHook(int width, int height);
 
-   const int WIDTH;
-   const int HEIGHT;
+
 
    sf::Vector2f m_position;
 
 private:
+   int WIDTH = 0;
+   int HEIGHT = 0;
    bool m_was_pressed = false;
 };

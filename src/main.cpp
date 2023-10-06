@@ -3,11 +3,6 @@
 #include "guessingPage.hpp"
 #include "settingsPage.hpp"
 
-enum PageId {
-   SETTINGS,
-   GUESSING
-};
-
 const int WIDTH = 200;
 const int HEIGHT = 200;
 
@@ -52,30 +47,13 @@ int main()
 {
    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training");
    sf::CircleShape shape(100.f);
-   shape.setFillColor(sf::Color::Green);
-
-
-   sf::SoundBuffer buffer1;
-   sf::SoundBuffer buffer2;
-
-   buffer1.loadFromFile("samples/17.wav");
-   buffer2.loadFromFile("samples/16.wav");
-
-   sf::Sound sound1;
-   sf::Sound sound2;
-
-   sound1.setBuffer(buffer1);
-   sound2.setBuffer(buffer2);
-
-   sound1.play();
-   sound2.play();
 
    while (window.isOpen())
    {
       pollEvents(window);
 
       window.clear();
-      window.draw(shape);
+      window.draw(getActivePage());
       window.display();
    }
 
