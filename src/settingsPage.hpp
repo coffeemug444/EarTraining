@@ -16,4 +16,5 @@ public:
 
 private:
    StandardButton m_button_next;
+   ToggleButton m_a_button;
 };
