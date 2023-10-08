@@ -1,14 +1,20 @@
 #include "guessingPage.hpp"
 #include "resources.hpp"
 #include <random>
+#include <sstream>
+#include <iostream>
 
 GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> switch_page)
    :Page(widgth, height, switch_page)
-   ,m_button_back("Back", [this](){ this->m_switch_page(SETTINGS); })
+   ,m_button_back("Back", [this](){ this->stopTones(); this->m_switch_page(SETTINGS); })
    ,m_button_next("Next", [this](){ this->selectNewTone(); })
    ,m_button_reveal("Reveal", [this](){ this->revealToneDescription(); })
+   ,m_button_repeat("Repeat", [this](){ this->playTones(); })
 {
    m_tone_description.setFont(Resources::font);
+
+   m_sound1.setBuffer(m_buffer1);
+   m_sound2.setBuffer(m_buffer2);
 
    float button_w = widgth/3.f;
    float button_h = height/8.f;
@@ -27,6 +33,10 @@ GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> s
    m_button_reveal.setSize(button_w, button_h);
    m_button_reveal.setPos({w_padding, (HEIGHT -button_h)/2.f});
 
+   m_button_repeat.setFillColor(sf::Color::Blue);
+   m_button_repeat.setSize(button_w, button_h);
+   m_button_repeat.setPos({w_padding, HEIGHT - button_h - h_padding});
+
    m_tone_description.setPosition({WIDTH/2.F + w_padding, (HEIGHT - button_h)/2.f});
 }
 
@@ -40,6 +50,7 @@ void GuessingPage::mouseDown(const sf::Vector2f &pos)
    m_button_back.mouseDown(pos);
    m_button_next.mouseDown(pos);
    m_button_reveal.mouseDown(pos);
+   m_button_repeat.mouseDown(pos);
 }
 
 void GuessingPage::mouseUp(const sf::Vector2f &pos)
@@ -47,6 +58,7 @@ void GuessingPage::mouseUp(const sf::Vector2f &pos)
    m_button_back.mouseUp(pos);
    m_button_next.mouseUp(pos);
    m_button_reveal.mouseUp(pos);
+   m_button_repeat.mouseUp(pos);
 }
 
 void GuessingPage::setAvailableTones(const std::vector<Tone>& tones)
@@ -66,8 +78,20 @@ void GuessingPage::selectNewTone()
    m_current_tone = m_tones.at(tones_dist(rng));
    std::uniform_int_distribution<std::mt19937::result_type> samples_dist(1,28 - (int)m_current_tone);
 
-   m_tone1 = samples_dist(rng);
-   m_tone2 = m_tone1 + (int)m_current_tone;
+   int tone1 = samples_dist(rng);
+   int tone2 = tone1 + (int)m_current_tone;
+
+   std::stringstream filepath_ss;
+
+
+   filepath_ss << "samples/" << std::to_string(tone1) << ".wav";
+   m_buffer1.loadFromFile(filepath_ss.str());
+
+   filepath_ss.str(std::string());
+   filepath_ss << "samples/" << std::to_string(tone2) << ".wav";
+   m_buffer2.loadFromFile(filepath_ss.str());
+
+   playTones();
 }
 
 void GuessingPage::revealToneDescription()
@@ -90,10 +114,25 @@ void GuessingPage::revealToneDescription()
    }}());
 }
 
+void GuessingPage::stopTones()
+{
+   m_sound1.stop();
+   m_sound2.stop();
+}
+
+void GuessingPage::playTones()
+{
+   stopTones();
+
+   m_sound1.play();
+   m_sound2.play();
+}
+
 void GuessingPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
 {
    target.draw(m_button_back);
    target.draw(m_button_next);
    target.draw(m_button_reveal);
+   target.draw(m_button_repeat);
    target.draw(m_tone_description);
 }
