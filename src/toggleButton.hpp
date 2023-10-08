@@ -1,6 +1,7 @@
 #pragma once
 #include "button.hpp"
 
+#include <iostream>
 
 class ToggleButton : public Button
 {
@@ -15,6 +16,6 @@ public:
 private:
    void toggle(bool on);
 
-   bool m_toggled;
+   bool m_toggled = false;
    sf::Color m_toggled_fill_color;
 };

@@ -55,7 +55,8 @@ void pollEvents(sf::RenderWindow& window)
 
 int main()
 {
-   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training");
+   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training", sf::Style::Titlebar | sf::Style::Close);
+   window.setFramerateLimit(60);
    sf::CircleShape shape(100.f);
 
    while (window.isOpen())

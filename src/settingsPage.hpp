@@ -2,6 +2,7 @@
 #include "page.hpp"
 #include "toggleButton.hpp"
 #include "standardButton.hpp"
+#include <array>
 
 class SettingsPage : public Page
 {
@@ -16,5 +17,17 @@ public:
 
 private:
    StandardButton m_button_next;
-   ToggleButton m_a_button;
+   ToggleButton m_1;
+   ToggleButton m_2;
+   ToggleButton m_3;
+   ToggleButton m_4;
+   ToggleButton m_5;
+   ToggleButton m_6;
+   ToggleButton m_7;
+   ToggleButton m_8;
+   ToggleButton m_9;
+   ToggleButton m_10;
+   ToggleButton m_11;
+
+   std::array<std::reference_wrapper<ToggleButton>, 11> m_toggle_buttons;
 };
