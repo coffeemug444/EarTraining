@@ -2,7 +2,8 @@
 #include <SFML/Audio.hpp>
 #include "guessingPage.hpp"
 #include "settingsPage.hpp"
-
+#include "resources.hpp"
+#include <iostream>
 
 void setActivePage(PageId page_id);
 Page& getActivePage();
@@ -23,9 +24,17 @@ Page& getActivePage()
 
 void setActivePage(PageId page_id)
 {
-   if (page_id == GUESSING) 
-      guessing_page.setAvailableTones(settings_page.getSelectedTones());
+   if (activePage == SETTINGS)
+   {
+      std::vector<Tone> tones = settings_page.getSelectedTones();
+      if (tones.size() == 0) return;
+   }
    activePage = page_id;
+   if (activePage == GUESSING) 
+   {
+      guessing_page.setAvailableTones(settings_page.getSelectedTones());
+      guessing_page.selectNewTone();
+   }
 }
 
 void pollEvents(sf::RenderWindow& window)
@@ -59,7 +68,8 @@ int main()
 {
    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training", sf::Style::Titlebar | sf::Style::Close);
    window.setFramerateLimit(60);
-   sf::CircleShape shape(100.f);
+
+   Resources::init();
 
    while (window.isOpen())
    {

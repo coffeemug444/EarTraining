@@ -1,8 +1,9 @@
 #include "button.hpp"
+#include "resources.hpp"
 
 Button::Button(const std::string& name)
 {
-   m_name.setFont(getFont());
+   m_name.setFont(Resources::font);
    m_name.setString(name);
 }
 
@@ -46,15 +47,6 @@ void Button::setFillColor(const sf::Color& color)
 {
    m_fill_color = color;
    m_background.setFillColor(color);
-}
-
-sf::Font& Button::getFont()
-{
-   if (FONT_AVAILABLE) return FONT;
-   FONT = sf::Font{};
-   FONT.loadFromFile("Rubik-VariableFont_wght.ttf");
-   FONT_AVAILABLE = true;
-   return FONT;
 }
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const

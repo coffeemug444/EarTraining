@@ -19,17 +19,11 @@ protected:
    virtual void setPosHook(const sf::Vector2f&) {};
    virtual void setSizeHook(int width, int height);
    virtual void drawHook(sf::RenderTarget &target, sf::RenderStates ) const;
-   sf::Font& getFont();
-
 
    sf::Text m_name;
    sf::Vector2f m_position;
    sf::RectangleShape m_background;
    sf::Color m_fill_color;
-
-   static inline bool FONT_AVAILABLE = false;
-   static inline sf::Font FONT;
-
 
 private:
    int WIDTH = 0;
