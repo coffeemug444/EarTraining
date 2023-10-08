@@ -1,5 +1,11 @@
 #include "button.hpp"
 
+Button::Button(const std::string& name)
+{
+   m_name.setFont(getFont());
+   m_name.setString(name);
+}
+
 void Button::setSize(int width, int height)
 {
    WIDTH = width;
@@ -32,6 +38,7 @@ void Button::setPos(const sf::Vector2f& pos)
 { 
    m_position = pos; 
    m_background.setPosition(pos);
+   m_name.setPosition(pos);
    setPosHook(pos); 
 }
 
@@ -41,9 +48,19 @@ void Button::setFillColor(const sf::Color& color)
    m_background.setFillColor(color);
 }
 
+sf::Font& Button::getFont()
+{
+   if (FONT_AVAILABLE) return FONT;
+   FONT = sf::Font{};
+   FONT.loadFromFile("Rubik-VariableFont_wght.ttf");
+   FONT_AVAILABLE = true;
+   return FONT;
+}
+
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
    target.draw(m_background);
+   target.draw(m_name);
    drawHook(target, states);
 }
 

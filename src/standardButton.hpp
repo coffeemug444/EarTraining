@@ -5,8 +5,8 @@
 class StandardButton : public Button
 {
 public:
-   StandardButton(std::function<void(void)> on_clicked)
-      :Button()
+   StandardButton(const std::string& name, std::function<void(void)> on_clicked)
+      :Button(name)
       ,m_on_clicked(on_clicked)
    {}
 protected:

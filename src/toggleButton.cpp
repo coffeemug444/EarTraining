@@ -1,7 +1,8 @@
 #include "toggleButton.hpp"
 
 
-ToggleButton::ToggleButton()
+ToggleButton::ToggleButton(const std::string& name)
+   :Button(name)
 {
    m_background.setFillColor(sf::Color::Red); // temporary
 }
