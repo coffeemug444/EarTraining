@@ -2,6 +2,7 @@
 #include "page.hpp"
 #include "toggleButton.hpp"
 #include "standardButton.hpp"
+#include "tones.hpp"
 #include <array>
 
 class SettingsPage : public Page
@@ -12,6 +13,8 @@ public:
    virtual void mouseMoved(const sf::Vector2f&) override;
    virtual void mouseDown(const sf::Vector2f&) override;
    virtual void mouseUp(const sf::Vector2f&) override;
+
+   std::vector<Tone> getSelectedTones() const;
 
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

@@ -64,6 +64,24 @@ void SettingsPage::mouseUp(const sf::Vector2f &pos)
    for (ToggleButton& button : m_toggle_buttons) button.mouseUp(pos);
 }
 
+std::vector<Tone> SettingsPage::getSelectedTones() const
+{
+   std::vector<Tone> selected_tones;
+   if (m_1.isToggled()) selected_tones.push_back(MINOR_SECOND);
+   if (m_2.isToggled()) selected_tones.push_back(MAJOR_SECOND);
+   if (m_3.isToggled()) selected_tones.push_back(MINOR_THIRD);
+   if (m_4.isToggled()) selected_tones.push_back(MAJOR_THIRD);
+   if (m_5.isToggled()) selected_tones.push_back(PERFECT_FOURTH);
+   if (m_6.isToggled()) selected_tones.push_back(TRITONE);
+   if (m_7.isToggled()) selected_tones.push_back(PERFECT_FIFTH);
+   if (m_8.isToggled()) selected_tones.push_back(MINOR_SIXTH);
+   if (m_9.isToggled()) selected_tones.push_back(MAJOR_SIXTH);
+   if (m_10.isToggled()) selected_tones.push_back(MINOR_SEVENTH);
+   if (m_11.isToggled()) selected_tones.push_back(MAJOR_SEVENTH);
+
+   return selected_tones;
+}
+
 void SettingsPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
 {
    target.draw(m_button_next);

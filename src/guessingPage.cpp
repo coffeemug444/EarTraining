@@ -24,6 +24,11 @@ void GuessingPage::mouseUp(const sf::Vector2f &pos)
    m_button_next.mouseUp(pos);
 }
 
+void GuessingPage::setAvailableTones(const std::vector<Tone>& tones)
+{
+   m_tones = tones;
+}
+
 void GuessingPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
 {
    target.draw(m_button_next);

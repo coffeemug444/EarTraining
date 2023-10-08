@@ -23,6 +23,8 @@ Page& getActivePage()
 
 void setActivePage(PageId page_id)
 {
+   if (page_id == GUESSING) 
+      guessing_page.setAvailableTones(settings_page.getSelectedTones());
    activePage = page_id;
 }
 

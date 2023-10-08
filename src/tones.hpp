@@ -1,0 +1,17 @@
+#pragma once
+
+
+enum Tone
+{
+   MINOR_SECOND = 1,
+   MAJOR_SECOND,
+   MINOR_THIRD,
+   MAJOR_THIRD,
+   PERFECT_FOURTH,
+   TRITONE,
+   PERFECT_FIFTH,
+   MINOR_SIXTH,
+   MAJOR_SIXTH,
+   MINOR_SEVENTH,
+   MAJOR_SEVENTH
+};

@@ -1,6 +1,7 @@
 #pragma once
 #include "page.hpp"
 #include "standardButton.hpp"
+#include "tones.hpp"
 
 class GuessingPage : public Page
 {
@@ -11,8 +12,11 @@ public:
    virtual void mouseDown(const sf::Vector2f&) override;
    virtual void mouseUp(const sf::Vector2f&) override;
 
+   void setAvailableTones(const std::vector<Tone>& tones);
+
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 protected:
    StandardButton m_button_next;
+   std::vector<Tone> m_tones;
 };
