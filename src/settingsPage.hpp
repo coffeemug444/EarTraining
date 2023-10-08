@@ -5,8 +5,8 @@
 class SettingsPage : public Page
 {
 public:
-   SettingsPage(int widgth, int height)
-      :Page(widgth, height)
+   SettingsPage(int widgth, int height, std::function<void(PageId)> switch_page)
+      :Page(widgth, height, switch_page)
    {
    }
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

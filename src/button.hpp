@@ -10,16 +10,19 @@ public:
    void mouseDown(const sf::Vector2f& pos);
    void mouseUp(const sf::Vector2f& pos);
    bool mouseIsOver(const sf::Vector2f& pos) const;
-   void setPos(const sf::Vector2f& pos) { m_position = pos; setPosHook(pos); }
+   void setPos(const sf::Vector2f& pos);
+   void draw(sf::RenderTarget &target, sf::RenderStates ) const override;
 
 protected:
    virtual void onClicked() {}
    virtual void setPosHook(const sf::Vector2f&) {};
    virtual void setSizeHook(int width, int height);
+   virtual void drawHook(sf::RenderTarget &target, sf::RenderStates ) const;
 
 
 
    sf::Vector2f m_position;
+   sf::RectangleShape m_background;
 
 private:
    int WIDTH = 0;

@@ -4,6 +4,7 @@ void Button::setSize(int width, int height)
 {
    WIDTH = width;
    HEIGHT = height;
+   m_background.setSize(sf::Vector2f{static_cast<float>(width), static_cast<float>(height)});
    setSizeHook(width, height);
 }
 
@@ -26,5 +27,20 @@ bool Button::mouseIsOver(const sf::Vector2f& pos) const
    
    return true;
 }
+
+void Button::setPos(const sf::Vector2f& pos) 
+{ 
+   m_position = pos; 
+   m_background.setPosition(pos);
+   setPosHook(pos); 
+}
+
+void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+   target.draw(m_background);
+   drawHook(target, states);
+}
+
+void Button::drawHook(sf::RenderTarget &, sf::RenderStates ) const {}
 
 void Button::setSizeHook(int, int) {}

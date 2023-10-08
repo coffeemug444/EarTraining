@@ -3,17 +3,27 @@
 #include "guessingPage.hpp"
 #include "settingsPage.hpp"
 
-const int WIDTH = 200;
-const int HEIGHT = 200;
+
+void setActivePage(PageId page_id);
+Page& getActivePage();
+void pollEvents(sf::RenderWindow& window);
+
+const int WIDTH = 600;
+const int HEIGHT = 600;
 
 PageId activePage = SETTINGS;
-GuessingPage guessing_page(WIDTH, HEIGHT);
-SettingsPage settings_page(WIDTH, HEIGHT);
+GuessingPage guessing_page(WIDTH, HEIGHT, setActivePage);
+SettingsPage settings_page(WIDTH, HEIGHT, setActivePage);
 
 Page& getActivePage()
 {
    if (activePage == SETTINGS) return settings_page;
    return guessing_page;
+}
+
+void setActivePage(PageId page_id)
+{
+   activePage = page_id;
 }
 
 void pollEvents(sf::RenderWindow& window)
