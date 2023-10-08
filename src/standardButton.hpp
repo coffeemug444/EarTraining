@@ -2,7 +2,6 @@
 #include "button.hpp"
 #include <functional>
 
-
 class StandardButton : public Button
 {
 public:

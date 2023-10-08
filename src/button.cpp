@@ -24,7 +24,7 @@ bool Button::mouseIsOver(const sf::Vector2f& pos) const
    if (pos.x > m_position.x + WIDTH) return false;
    if (pos.y < m_position.y) return false;
    if (pos.y > m_position.y + HEIGHT) return false;
-   
+
    return true;
 }
 
@@ -33,6 +33,12 @@ void Button::setPos(const sf::Vector2f& pos)
    m_position = pos; 
    m_background.setPosition(pos);
    setPosHook(pos); 
+}
+
+void Button::setFillColor(const sf::Color& color)
+{
+   m_fill_color = color;
+   m_background.setFillColor(color);
 }
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const

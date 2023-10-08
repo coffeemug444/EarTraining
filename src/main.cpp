@@ -37,15 +37,15 @@ void pollEvents(sf::RenderWindow& window)
          window.close();
          break;
       case sf::Event::MouseMoved:
-         getActivePage().MouseMoved({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)});
+         getActivePage().mouseMoved({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)});
          break;
       case sf::Event::MouseButtonPressed:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         getActivePage().MouseDown({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)});
+         getActivePage().mouseDown({static_cast<float>(event.mouseButton.x),static_cast<float>(event.mouseButton.y)});
          break;
       case sf::Event::MouseButtonReleased:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
-         getActivePage().MouseUp({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)});
+         getActivePage().mouseUp({static_cast<float>(event.mouseButton.x),static_cast<float>(event.mouseButton.y)});
          break;
       default:
          break;

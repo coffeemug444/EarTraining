@@ -16,9 +16,9 @@ public:
       ,m_switch_page(switch_page)
    {}
 
-   virtual void MouseMoved(const sf::Vector2f&) {}
-   virtual void MouseDown(const sf::Vector2f&) {}
-   virtual void MouseUp(const sf::Vector2f&) {}
+   virtual void mouseMoved(const sf::Vector2f&) {}
+   virtual void mouseDown(const sf::Vector2f&) {}
+   virtual void mouseUp(const sf::Vector2f&) {}
 
 protected:
 

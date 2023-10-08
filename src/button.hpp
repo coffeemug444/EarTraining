@@ -11,6 +11,7 @@ public:
    void mouseUp(const sf::Vector2f& pos);
    bool mouseIsOver(const sf::Vector2f& pos) const;
    void setPos(const sf::Vector2f& pos);
+   virtual void setFillColor(const sf::Color& color);
    void draw(sf::RenderTarget &target, sf::RenderStates ) const override;
 
 protected:
@@ -23,6 +24,7 @@ protected:
 
    sf::Vector2f m_position;
    sf::RectangleShape m_background;
+   sf::Color m_fill_color;
 
 private:
    int WIDTH = 0;
