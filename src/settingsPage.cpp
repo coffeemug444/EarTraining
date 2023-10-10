@@ -47,9 +47,12 @@ SettingsPage::SettingsPage(int widgth, int height, std::function<void(PageId)> s
    m_button_next.setPos({button_total_w+w_padding,5*button_total_h + h_padding});
 }
 
-void SettingsPage::mouseMoved(const sf::Vector2f&)
+sf::Cursor::Type SettingsPage::mouseMoved(const sf::Vector2f& pos)
 {
-   
+   if (m_button_next.mouseIsOver(pos) or
+      std::any_of(m_toggle_buttons.begin(), m_toggle_buttons.end(), [pos](const Button& button) { return button.mouseIsOver(pos); })
+   ) return sf::Cursor::Hand;
+   return sf::Cursor::Arrow;
 }
 
 void SettingsPage::mouseDown(const sf::Vector2f &pos)

@@ -7,7 +7,7 @@
 
 void setActivePage(PageId page_id);
 Page& getActivePage();
-void pollEvents(sf::RenderWindow& window);
+void pollEvents(sf::RenderWindow& window, sf::Cursor& cursor);
 
 const int WIDTH = 600;
 const int HEIGHT = 600;
@@ -37,7 +37,7 @@ void setActivePage(PageId page_id)
    }
 }
 
-void pollEvents(sf::RenderWindow& window)
+void pollEvents(sf::RenderWindow& window, sf::Cursor& cursor)
 {
    sf::Event event;
    while (window.pollEvent(event))
@@ -48,7 +48,10 @@ void pollEvents(sf::RenderWindow& window)
          window.close();
          break;
       case sf::Event::MouseMoved:
-         getActivePage().mouseMoved({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)});
+         cursor.loadFromSystem(
+            getActivePage().mouseMoved({static_cast<float>(event.mouseMove.x),static_cast<float>(event.mouseMove.y)})
+         );
+         window.setMouseCursor(cursor);
          break;
       case sf::Event::MouseButtonPressed:
          if (event.mouseButton.button != sf::Mouse::Button::Left) break;
@@ -67,13 +70,16 @@ void pollEvents(sf::RenderWindow& window)
 int main()
 {
    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Ear Training", sf::Style::Titlebar | sf::Style::Close);
+   sf::Cursor cursor;
+   cursor.loadFromSystem(sf::Cursor::Arrow);
+   window.setMouseCursor(cursor);
    window.setFramerateLimit(60);
 
    Resources::init();
 
    while (window.isOpen())
    {
-      pollEvents(window);
+      pollEvents(window, cursor);
 
       window.clear();
       window.draw(getActivePage());

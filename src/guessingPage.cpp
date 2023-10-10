@@ -40,9 +40,13 @@ GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> s
    m_tone_description.setPosition({WIDTH/2.F + w_padding, (HEIGHT - button_h)/2.f});
 }
 
-void GuessingPage::mouseMoved(const sf::Vector2f&)
+sf::Cursor::Type GuessingPage::mouseMoved(const sf::Vector2f& pos)
 {
-   
+   if (m_button_back.mouseIsOver(pos)) return sf::Cursor::Hand;
+   if (m_button_next.mouseIsOver(pos)) return sf::Cursor::Hand;
+   if (m_button_reveal.mouseIsOver(pos)) return sf::Cursor::Hand;
+   if (m_button_repeat.mouseIsOver(pos)) return sf::Cursor::Hand;
+   return sf::Cursor::Arrow;
 }
 
 void GuessingPage::mouseDown(const sf::Vector2f &pos)

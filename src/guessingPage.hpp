@@ -9,7 +9,7 @@ class GuessingPage : public Page
 public:
    GuessingPage(int widgth, int height, std::function<void(PageId)> switch_page);
 
-   virtual void mouseMoved(const sf::Vector2f&) override;
+   virtual sf::Cursor::Type mouseMoved(const sf::Vector2f&) override;
    virtual void mouseDown(const sf::Vector2f&) override;
    virtual void mouseUp(const sf::Vector2f&) override;
 

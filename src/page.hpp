@@ -16,7 +16,7 @@ public:
       ,m_switch_page(switch_page)
    {}
 
-   virtual void mouseMoved(const sf::Vector2f&) {}
+   virtual sf::Cursor::Type mouseMoved(const sf::Vector2f&) { return sf::Cursor::Arrow; }
    virtual void mouseDown(const sf::Vector2f&) {}
    virtual void mouseUp(const sf::Vector2f&) {}
 
