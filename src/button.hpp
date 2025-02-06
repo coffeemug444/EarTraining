@@ -5,7 +5,7 @@
 class Button : public sf::Drawable
 {
 public:
-   Button(const std::string& name);
+   Button(const std::string& name, const int font_size);
    void setSize(int width, int height);
    void mouseDown(const sf::Vector2f& pos);
    void mouseUp(const sf::Vector2f& pos);

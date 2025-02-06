@@ -1,19 +1,20 @@
 #include "settingsPage.hpp"
+#include "resources.hpp"
 
 SettingsPage::SettingsPage(int widgth, int height, std::function<void(PageId)> switch_page)
    :Page(widgth, height, switch_page)
-   ,m_button_next("Next", [this](){ this->m_switch_page(GUESSING); })
-   ,m_1("Minor second")
-   ,m_2("Major second")
-   ,m_3("Minor third")
-   ,m_4("Major third")
-   ,m_5("Perfect fourth")
-   ,m_6("Tritone")
-   ,m_7("Perfect fifth")
-   ,m_8("Minor sixth")
-   ,m_9("Major sixth")
-   ,m_10("Minor seventh")
-   ,m_11("Major seventh")
+   ,m_button_next("Next", [this](){ this->m_switch_page(GUESSING); }, height * Resources::TEXT_RATIO)
+   ,m_1("Minor second", height * Resources::TEXT_RATIO)
+   ,m_2("Major second", height * Resources::TEXT_RATIO)
+   ,m_3("Minor third", height * Resources::TEXT_RATIO)
+   ,m_4("Major third", height * Resources::TEXT_RATIO)
+   ,m_5("Perfect fourth", height * Resources::TEXT_RATIO)
+   ,m_6("Tritone", height * Resources::TEXT_RATIO)
+   ,m_7("Perfect fifth", height * Resources::TEXT_RATIO)
+   ,m_8("Minor sixth", height * Resources::TEXT_RATIO)
+   ,m_9("Major sixth", height * Resources::TEXT_RATIO)
+   ,m_10("Minor seventh", height * Resources::TEXT_RATIO)
+   ,m_11("Major seventh", height * Resources::TEXT_RATIO)
    ,m_toggle_buttons{m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8,m_9,m_10,m_11}
 {
 

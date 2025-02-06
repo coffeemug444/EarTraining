@@ -1,9 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
-
-
 class Resources
 {
 public:
@@ -13,4 +10,5 @@ public:
    }
 
    inline static sf::Font font;
+   inline static const float TEXT_RATIO = 1/20.f;
 };

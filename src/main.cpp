@@ -3,14 +3,13 @@
 #include "guessingPage.hpp"
 #include "settingsPage.hpp"
 #include "resources.hpp"
-#include <iostream>
 
 void setActivePage(PageId page_id);
 Page& getActivePage();
 void pollEvents(sf::RenderWindow& window, sf::Cursor& cursor);
 
-const int WIDTH = 600;
-const int HEIGHT = 600;
+const int WIDTH = 300;
+const int HEIGHT = 300;
 
 PageId activePage = SETTINGS;
 GuessingPage guessing_page(WIDTH, HEIGHT, setActivePage);

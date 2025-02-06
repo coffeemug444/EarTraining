@@ -2,17 +2,15 @@
 #include "resources.hpp"
 #include <random>
 #include <sstream>
-#include <iostream>
 
 GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> switch_page)
    :Page(widgth, height, switch_page)
-   ,m_button_back("Back", [this](){ this->stopTones(); this->m_switch_page(SETTINGS); })
-   ,m_button_next("Next", [this](){ this->selectNewTone(); })
-   ,m_button_reveal("Reveal", [this](){ this->revealToneDescription(); })
-   ,m_button_repeat("Repeat", [this](){ this->playTones(); })
+   ,m_button_back("Back", [this](){ this->stopTones(); this->m_switch_page(SETTINGS); }, height * Resources::TEXT_RATIO)
+   ,m_button_next("Next", [this](){ this->selectNewTone(); }, height * Resources::TEXT_RATIO)
+   ,m_button_reveal("Reveal", [this](){ this->revealToneDescription(); }, height * Resources::TEXT_RATIO)
+   ,m_button_repeat("Repeat", [this](){ this->playTones(); }, height * Resources::TEXT_RATIO)
+   ,m_tone_description("", Resources::font, height * Resources::TEXT_RATIO)
 {
-   m_tone_description.setFont(Resources::font);
-
    m_sound1.setBuffer(m_buffer1);
    m_sound2.setBuffer(m_buffer2);
 

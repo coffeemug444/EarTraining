@@ -1,8 +1,8 @@
 #include "toggleButton.hpp"
 
 
-ToggleButton::ToggleButton(const std::string& name)
-   :Button(name)
+ToggleButton::ToggleButton(const std::string& name, const int font_size)
+   :Button(name, font_size)
 {
 }
 

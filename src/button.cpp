@@ -1,10 +1,9 @@
 #include "button.hpp"
 #include "resources.hpp"
 
-Button::Button(const std::string& name)
+Button::Button(const std::string& name, const int font_size)
+   :m_name(name, Resources::font, font_size)
 {
-   m_name.setFont(Resources::font);
-   m_name.setString(name);
 }
 
 void Button::setSize(int width, int height)
