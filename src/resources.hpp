@@ -6,7 +6,7 @@ class Resources
 public:
    static void init()
    {
-      font.loadFromFile("Rubik-VariableFont_wght.ttf");
+      font.loadFromFile("resources/Rubik-VariableFont_wght.ttf");
    }
 
    inline static sf::Font font;

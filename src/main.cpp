@@ -25,14 +25,14 @@ void setActivePage(PageId page_id)
 {
    if (activePage == SETTINGS)
    {
-      std::vector<Tone> tones = settings_page.getSelectedTones();
-      if (tones.size() == 0) return;
+      std::vector<Interval> intervals = settings_page.getSelectedIntervals();
+      if (intervals.size() == 0) return;
    }
    activePage = page_id;
    if (activePage == GUESSING) 
    {
-      guessing_page.setAvailableTones(settings_page.getSelectedTones());
-      guessing_page.selectNewTone();
+      guessing_page.setAvailableIntervals(settings_page.getSelectedIntervals());
+      guessing_page.selectNewInterval();
    }
 }
 

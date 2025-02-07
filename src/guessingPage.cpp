@@ -5,11 +5,11 @@
 
 GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> switch_page)
    :Page(widgth, height, switch_page)
-   ,m_button_back("Back", [this](){ this->stopTones(); this->m_switch_page(SETTINGS); }, height * Resources::TEXT_RATIO)
-   ,m_button_next("Next", [this](){ this->selectNewTone(); }, height * Resources::TEXT_RATIO)
-   ,m_button_reveal("Reveal", [this](){ this->revealToneDescription(); }, height * Resources::TEXT_RATIO)
-   ,m_button_repeat("Repeat", [this](){ this->playTones(); }, height * Resources::TEXT_RATIO)
-   ,m_tone_description("", Resources::font, height * Resources::TEXT_RATIO)
+   ,m_button_back("Back", [this](){ this->stopInterval(); this->m_switch_page(SETTINGS); }, height * Resources::TEXT_RATIO)
+   ,m_button_next("Next", [this](){ this->selectNewInterval(); }, height * Resources::TEXT_RATIO)
+   ,m_button_reveal("Reveal", [this](){ this->revealIntervalDescription(); }, height * Resources::TEXT_RATIO)
+   ,m_button_repeat("Repeat", [this](){ this->playInterval(); }, height * Resources::TEXT_RATIO)
+   ,m_interval_description("", Resources::font, height * Resources::TEXT_RATIO)
 {
    m_sound1.setBuffer(m_buffer1);
    m_sound2.setBuffer(m_buffer2);
@@ -35,7 +35,7 @@ GuessingPage::GuessingPage(int widgth, int height, std::function<void(PageId)> s
    m_button_repeat.setSize(button_w, button_h);
    m_button_repeat.setPos({w_padding, HEIGHT - button_h - h_padding});
 
-   m_tone_description.setPosition({WIDTH/2.F + w_padding, (HEIGHT - button_h)/2.f});
+   m_interval_description.setPosition({WIDTH/2.F + w_padding, (HEIGHT - button_h)/2.f});
 }
 
 sf::Cursor::Type GuessingPage::mouseMoved(const sf::Vector2f& pos)
@@ -63,44 +63,44 @@ void GuessingPage::mouseUp(const sf::Vector2f &pos)
    m_button_repeat.mouseUp(pos);
 }
 
-void GuessingPage::setAvailableTones(const std::vector<Tone>& tones)
+void GuessingPage::setAvailableIntervals(const std::vector<Interval>& intervals)
 {
-   m_tones = tones;
+   m_intervals = intervals;
 }
 
-void GuessingPage::selectNewTone()
+void GuessingPage::selectNewInterval()
 {
    static std::random_device dev;
    static std::mt19937 rng(dev());
 
-   m_tone_description.setString("");
+   m_interval_description.setString("");
 
-   std::uniform_int_distribution<std::mt19937::result_type> tones_dist(0,m_tones.size()-1);
+   std::uniform_int_distribution<std::mt19937::result_type> intervals_dist(0,m_intervals.size()-1);
 
-   m_current_tone = m_tones.at(tones_dist(rng));
-   std::uniform_int_distribution<std::mt19937::result_type> samples_dist(1,28 - (int)m_current_tone);
+   m_current_interval = m_intervals.at(intervals_dist(rng));
+   std::uniform_int_distribution<std::mt19937::result_type> samples_dist(1,28 - (int)m_current_interval);
 
    int tone1 = samples_dist(rng);
-   int tone2 = tone1 + (int)m_current_tone;
+   int tone2 = tone1 + (int)m_current_interval;
 
    std::stringstream filepath_ss;
 
-
-   filepath_ss << "samples/" << std::to_string(tone1) << ".wav";
+   filepath_ss << "resources/samples/" << std::to_string(tone1) << ".wav";
    m_buffer1.loadFromFile(filepath_ss.str());
 
    filepath_ss.str(std::string());
-   filepath_ss << "samples/" << std::to_string(tone2) << ".wav";
+   filepath_ss << "resources/samples/" << std::to_string(tone2) << ".wav";
    m_buffer2.loadFromFile(filepath_ss.str());
 
-   playTones();
+   playInterval();
 }
 
-void GuessingPage::revealToneDescription()
+void GuessingPage::revealIntervalDescription()
 {
-   m_tone_description.setString([this]() -> std::string {
-   switch (m_current_tone)
+   m_interval_description.setString([this]() -> std::string {
+   switch (m_current_interval)
    {
+   using enum Interval;
    case MINOR_SECOND:   return "Minor second";
    case MAJOR_SECOND:   return "Major second";
    case MINOR_THIRD:    return "Minor third";
@@ -116,15 +116,15 @@ void GuessingPage::revealToneDescription()
    }}());
 }
 
-void GuessingPage::stopTones()
+void GuessingPage::stopInterval()
 {
    m_sound1.stop();
    m_sound2.stop();
 }
 
-void GuessingPage::playTones()
+void GuessingPage::playInterval()
 {
-   stopTones();
+   stopInterval();
 
    m_sound1.play();
    m_sound2.play();
@@ -136,5 +136,5 @@ void GuessingPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
    target.draw(m_button_next);
    target.draw(m_button_reveal);
    target.draw(m_button_repeat);
-   target.draw(m_tone_description);
+   target.draw(m_interval_description);
 }

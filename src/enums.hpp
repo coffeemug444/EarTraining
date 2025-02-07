@@ -1,7 +1,7 @@
 #pragma once
 
 
-enum Tone
+enum class Interval
 {
    MINOR_SECOND = 1,
    MAJOR_SECOND,
@@ -14,4 +14,11 @@ enum Tone
    MAJOR_SIXTH,
    MINOR_SEVENTH,
    MAJOR_SEVENTH
+};
+
+enum class Direction
+{
+   ASCENDING,
+   DESCENDING,
+   SIMULTANEOUS
 };
