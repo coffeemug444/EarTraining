@@ -15,6 +15,7 @@ public:
    virtual void mouseUp(const sf::Vector2f&) override;
 
    std::vector<Interval> getSelectedIntervals() const;
+   std::vector<Direction> getSelectedDirections() const;
 
    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -32,5 +33,9 @@ private:
    ToggleButton m_10;
    ToggleButton m_11;
 
-   std::array<std::reference_wrapper<ToggleButton>, 11> m_toggle_buttons;
+   ToggleButton m_ascending;
+   ToggleButton m_descending;
+   ToggleButton m_simultaneous;
+
+   std::array<std::reference_wrapper<ToggleButton>, 14> m_toggle_buttons;
 };

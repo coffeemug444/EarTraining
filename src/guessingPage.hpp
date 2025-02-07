@@ -14,6 +14,7 @@ public:
    void mouseUp(const sf::Vector2f&) override;
 
    void setAvailableIntervals(const std::vector<Interval>& intervals);
+   void setAvailableDirections(const std::vector<Direction>& directions);
    void selectNewInterval();
    void revealIntervalDescription();
 
@@ -30,10 +31,13 @@ protected:
    sf::Text m_interval_description;
    Interval m_current_interval;
    std::vector<Interval> m_intervals;
+   std::vector<Direction> m_directions;
 
    sf::SoundBuffer m_buffer1;
    sf::SoundBuffer m_buffer2;
 
    sf::Sound m_sound1;
    sf::Sound m_sound2;
+
+   static void insertSilence(sf::SoundBuffer& buffer, sf::Time duration);
 };

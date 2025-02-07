@@ -68,6 +68,11 @@ void GuessingPage::setAvailableIntervals(const std::vector<Interval>& intervals)
    m_intervals = intervals;
 }
 
+void GuessingPage::setAvailableDirections(const std::vector<Direction>& directions)
+{
+   m_directions = directions;
+}
+
 void GuessingPage::selectNewInterval()
 {
    static std::random_device dev;
@@ -91,6 +96,21 @@ void GuessingPage::selectNewInterval()
    filepath_ss.str(std::string());
    filepath_ss << "resources/samples/" << std::to_string(tone2) << ".wav";
    m_buffer2.loadFromFile(filepath_ss.str());
+
+   std::uniform_int_distribution<std::mt19937::result_type> directions_dist(0,m_directions.size()-1);
+   Direction direction = m_directions.at(directions_dist(rng));
+
+   switch (direction) {
+   case Direction::ASCENDING:
+      insertSilence(m_buffer2, sf::seconds(1));
+      break;
+   case Direction::DESCENDING:
+      insertSilence(m_buffer1, sf::seconds(1));
+      break;
+   case Direction::SIMULTANEOUS:
+   default:
+      break;
+   }
 
    playInterval();
 }
@@ -137,4 +157,16 @@ void GuessingPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
    target.draw(m_button_reveal);
    target.draw(m_button_repeat);
    target.draw(m_interval_description);
+}
+
+
+void GuessingPage::insertSilence(sf::SoundBuffer& buffer, sf::Time duration)
+{
+   std::vector<sf::Int16> samples(buffer.getSamples(), std::next(buffer.getSamples(), buffer.getSampleCount()));
+   size_t silent_sample_count = (1000.f / duration.asMilliseconds()) * buffer.getSampleRate() * buffer.getChannelCount();
+   std::vector<sf::Int16> silent_samples(silent_sample_count, 0);
+   
+   samples.insert(std::begin(samples), std::begin(silent_samples), std::end(silent_samples));
+
+   buffer.loadFromSamples(samples.data(), samples.size(), buffer.getChannelCount(), buffer.getSampleRate());
 }

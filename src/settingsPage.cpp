@@ -16,32 +16,50 @@ SettingsPage::SettingsPage(int widgth, int height, std::function<void(PageId)> s
    ,m_9("Major sixth",    height * Resources::TEXT_RATIO)
    ,m_10("Minor seventh", height * Resources::TEXT_RATIO)
    ,m_11("Major seventh", height * Resources::TEXT_RATIO)
-   ,m_toggle_buttons{m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8,m_9,m_10,m_11}
+   ,m_ascending("Ascending", height * Resources::TEXT_RATIO)
+   ,m_descending("Descending", height * Resources::TEXT_RATIO)
+   ,m_simultaneous("Simultaneous", height * Resources::TEXT_RATIO)
+   ,m_toggle_buttons{
+      m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8,m_9,m_10,m_11,
+      m_ascending,
+      m_descending,
+      m_simultaneous}
 {
 
-   float button_w = widgth/3.f;
-   float button_h = height/8.f;
-   float w_padding = ((widgth - 2*button_w)/2.f)/2.f; // 2 columns
-   float h_padding = ((height - 6*button_h)/6.f)/2.f; // 6 rows
+   const float button_w = widgth/3.f;
+   const float button_h = height/10.f;
+   const float w_padding = ((widgth - 2*button_w)/2.f)/2.f; // 2 columns
+   const float h_padding = ((height - 6*button_h)/8.f)/2.f; // 8 rows
 
-   float button_total_w = button_w + 2*w_padding;
-   float button_total_h = button_h + 2*h_padding;
+   const float button_total_w = button_w + 2*w_padding;
+   const float button_total_h = button_h + 2*h_padding;
 
-   for (int i = 0; i < 6; i++)
+   for (ToggleButton& button : m_toggle_buttons)
    {
-      ToggleButton& button = m_toggle_buttons.at(i);
       button.setSize(button_w, button_h);
       button.setFillColor(sf::Color::Blue);
       button.setToggledFillColor(sf::Color::Cyan);
-      button.setPos({w_padding, i*button_total_h + h_padding});
    }
-   for (int i = 6; i < 11; i++)
+
+   for (int i = 0; i < 11; i++)
    {
       ToggleButton& button = m_toggle_buttons.at(i);
-      button.setSize(button_w, button_h);
-      button.setFillColor(sf::Color::Blue);
-      button.setToggledFillColor(sf::Color::Cyan);
-      button.setPos({button_total_w+w_padding, (i-6)*button_total_h + h_padding});
+      const float x = w_padding + (i / 6) * button_total_w;
+      const float y = (i%6) * button_total_h + h_padding;
+      button.setPos({x, y});
+   }
+
+   for (int i = 11; i < 14; i++)
+   {
+      const float modded_w = widgth / 4.f;
+      const float modded_w_padding = ((widgth - 3*modded_w)/3.f)/2.f; // 2 columns
+      const float modded_total_w = modded_w + 2*modded_w_padding;
+
+      ToggleButton& button = m_toggle_buttons.at(i);
+      button.setSize(modded_w, button_h);
+      const float x = modded_w_padding + modded_total_w * (i - 11);
+      const float y = 6 * button_total_h + h_padding;
+      button.setPos({x, y});
    }
 
    m_button_next.setFillColor(sf::Color::Red);
@@ -91,8 +109,22 @@ std::vector<Interval> SettingsPage::getSelectedIntervals() const
    return selected_intervals;
 }
 
+std::vector<Direction> SettingsPage::getSelectedDirections() const
+{
+   std::vector<Direction> selected_directions;
+   using enum Direction;
+   if (m_ascending.isToggled())    selected_directions.push_back(ASCENDING);
+   if (m_descending.isToggled())   selected_directions.push_back(DESCENDING);
+   if (m_simultaneous.isToggled()) selected_directions.push_back(SIMULTANEOUS);
+
+   return selected_directions;
+}
+
 void SettingsPage::draw(sf::RenderTarget &target, sf::RenderStates ) const
 {
    target.draw(m_button_next);
-   for (ToggleButton& button : m_toggle_buttons) target.draw(button);
+   for (ToggleButton& button : m_toggle_buttons) 
+   {
+      target.draw(button);
+   }
 }

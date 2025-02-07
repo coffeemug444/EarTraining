@@ -23,17 +23,20 @@ Page& getActivePage()
 
 void setActivePage(PageId page_id)
 {
-   if (activePage == SETTINGS)
+   if (page_id == GUESSING)
    {
       std::vector<Interval> intervals = settings_page.getSelectedIntervals();
-      if (intervals.size() == 0) return;
-   }
-   activePage = page_id;
-   if (activePage == GUESSING) 
-   {
-      guessing_page.setAvailableIntervals(settings_page.getSelectedIntervals());
+      if (intervals.empty()) return;
+
+      std::vector<Direction> directions = settings_page.getSelectedDirections();
+      if (directions.empty()) return;
+
+      guessing_page.setAvailableIntervals(intervals);
+      guessing_page.setAvailableDirections(directions);
       guessing_page.selectNewInterval();
    }
+
+   activePage = page_id;
 }
 
 void pollEvents(sf::RenderWindow& window, sf::Cursor& cursor)
